@@ -1,0 +1,41 @@
+{% extends 'ortho_viewer/base.html' %}
+{% load static %}
+
+{% block content %}
+<!--Custom styles for this template-->
+<!-- Page Heading -->
+<link href="{% static 'css/orthoimage-fault.css' %}" rel="stylesheet">
+
+<script language="javascript">
+    function testimage() {
+        x=event.offsetX;
+        y=event.offsetY;
+        document.getElementById("px_x").value=x;
+        document.getElementById("px_y").value=y;
+    }
+</script>
+
+<body>
+</body>
+
+<body>
+    <div style="text-align : center;">
+        <div id="orthoimage-wrapper">
+            <form action="{%url 'create' pk=orthoimage.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="number" id="px_x" name="px_x">
+                <input type="number" id="px_y" name="px_y">
+                <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
+                <input class="btn btn-dark" type="submit" value="제출하기">
+            </form>
+            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" />
+        </div>
+
+    </div>
+</body>
+
+</br></br></br></br></br>
+
+
+
+{% endblock content %}
