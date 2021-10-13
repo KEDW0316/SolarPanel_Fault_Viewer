@@ -15,8 +15,11 @@
 
 <body>
     <div style="text-align : center;">
+        
         <div id="orthoimage-wrapper">
             <img id="orthoimage" src="{{ orthoimage.image.url }}" width="800px" alt="" />
+
+            <!-- Marking on Orthoimage -->
             {% for file in panelfault %}
             <style>
                 #faultmark{{file.id}}{
@@ -41,9 +44,12 @@
                 </script>
             </a>
             {% endfor %}
+            <!-- End Marking on Ortho image -->
         </div>
 
-        <!-- The Modal -->
+        <!-- Create Modal Popup -->
+        {% for file in panelfault %}
+        
         <div id="myModal{{file.id}}" class="modal">
 
             <!-- Modal content -->
@@ -69,12 +75,10 @@
             </div>
 
         </div>
+        {% endfor %}
+
         <!--End Modal-->
         <!-- </div> -->
     </div>
 </body>
-
-
-
-
 {% endblock content %}
