@@ -8,14 +8,12 @@
     width: 800px;
 
 }
-#orthoimage {
-    display: block;
-    position: relative;
-    width: 100%;
+#orthoimage {   
+    display:block;
 }
 
-#faultmark {
-    position: absolute;
+#faultmark{
+    position:"absolute"
 }
 
 /* The Modal (background) */
@@ -62,7 +60,4 @@
 
 .modal_orthoimage{
     position: relative;
-}
-#modal_faultmark {
-    position: absolute;
 }

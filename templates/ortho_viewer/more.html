@@ -16,69 +16,61 @@
 <body>
     <div style="text-align : center;">
         <div id="orthoimage-wrapper">
-
-            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" />
-
+            <img id="orthoimage" src="{{ orthoimage.image.url }}" width="800px" alt="" />
             {% for file in panelfault %}
-
             <style>
                 #faultmark{{file.id}}{
+                    width:3%;
                     position:absolute;
-                    left : calc({{file.px_x}}px - 22px);
-                    top : calc({{file.px_y}}px - 40px);
+                    left :calc({{file.px_x}}%);
+                    top : calc({{file.px_y}}%);
                 }
             </style>
-            
-            <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%" onclick=fault_detail({{file.id}}) >
-              
+            <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" src={% static 'img/pin2.svg' %} onclick=fault_detail({{file.id}})>
                 <script src="https://code.jquery.com/jquery-latest.js"></script>
 
                 <script type="text/javascript">
                     function fault_detail(file_id) {
-                        $('#myModal'+file_id).show();
+                        $('#myModal' + file_id).show();
                     }
                     //팝업 Close 기능
                     function close_pop(file_id) {
-                        $('#myModal'+file_id).hide();
+                        $('#myModal' + file_id).hide();
                     };
-                
-                </script>               
 
-                <!-- The Modal -->
-                <div id="myModal{{file.id}}" class="modal">
-                    
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="modal-images">
-                            <img id="modal_orthoimage" src="{{ orthoimage.image.url }}" width="50%" alt="" style=" padding-right: 50px ;"/>
-                            <img id="modal_fault_image" src="{{ file.fault_image.url }}"  width="30%" alt="" />
-                            <style>
-                                #modal_faultmark{{file.id}}{
-                                    position:absolute;
-                                    left : calc(({{file.px_x}}px - 22px)*0.865);
-                                    top : calc(({{file.px_y}}px - 40px)*0.65);
-                                }
-                            </style>
-                            <div>
-                                <a ><img id="modal_faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%" >
-                            </div>
-                        </div>
-                        <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
-                                        style="font-size: 24pt;">고장</span></b></span></p>
-
-                        <p><br /></p>
-                        <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
-                            onClick="close_pop({{file.id}});">
-                            <span class="pop_bt" style="font-size: 13pt;">
-                                닫기
-                            </span>
-                        </div>
-                    </div>
-                
-                </div>
-                <!--End Modal-->
+                </script>
+            </a>
             {% endfor %}
         </div>
+
+        <!-- The Modal -->
+        <div id="myModal{{file.id}}" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-images">
+                    <img id="modal_orthoimage" src="{{ orthoimage.image.url }}" width="50%" alt="" />
+                    <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="30%" alt="" />
+
+                    <div>
+                        <a><img id="modal_faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
+                    </div>
+                </div>
+                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
+                                style="font-size: 24pt;">고장났어요!</span></b></span></p>
+
+                <p><br /></p>
+                <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
+                    onClick="close_pop({{file.id}});">
+                    <span class="pop_bt" style="font-size: 13pt;">
+                        닫기
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <!--End Modal-->
+        <!-- </div> -->
     </div>
 </body>
 

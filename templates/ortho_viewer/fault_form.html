@@ -10,8 +10,11 @@
     function testimage() {
         x=event.offsetX;
         y=event.offsetY;
-        document.getElementById("px_x").value=x;
-        document.getElementById("px_y").value=y;
+        width = document.getElementById('orthoimage').clientWidth;
+        height = document.getElementById('orthoimage').clientHeight;
+        document.getElementById("px_x").value=((x/width)*100)-1.4;
+        document.getElementById("px_y").value=((y/height)*100)-2.9;
+
     }
 </script>
 
@@ -23,12 +26,12 @@
         <div id="orthoimage-wrapper">
             <form action="{%url 'create' pk=orthoimage.pk %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="number" id="px_x" name="px_x">
-                <input type="number" id="px_y" name="px_y">
+                <input type="number" step="any" id="px_x" name="px_x">
+                <input type="number" step="any" id="px_y" name="px_y">
                 <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
                 <input class="btn btn-dark" type="submit" value="제출하기">
             </form>
-            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" />
+            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80% />
         </div>
 
     </div>

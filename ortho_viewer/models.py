@@ -13,8 +13,8 @@ class Orthoimage(models.Model):
 class panel_fault(models.Model):
     id = models.BigAutoField(primary_key=True)
     image_id = models.ForeignKey(Orthoimage, on_delete=models.CASCADE)
-    px_x = models.IntegerField(default = 1, null=True)
-    px_y = models.IntegerField(default = 1, null=True)
+    px_x = models.FloatField(default = 1, null=True)
+    px_y = models.FloatField(default = 1, null=True)
     fault_image = models.ImageField(upload_to='image/', null=True, blank=True)
 
     def publish(self):
