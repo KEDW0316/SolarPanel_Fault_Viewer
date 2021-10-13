@@ -12,10 +12,22 @@
     display:block;
 }
 
-#faultmark{
-    position:"absolute"
+
+#modal-images{
+    position: relative;
+    
+    float:left;
+    width: 500px;
 }
 
+#modal-orthoimage{
+   position: relative;
+   float:left;
+   
+}
+#modal-faultmark{
+    position:absolute;
+}
 /* The Modal (background) */
 .modal {
     display: none;
@@ -36,28 +48,22 @@
     /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
-    transform: translate(21%,0% );
-
-   
+    transform: translate(21%,0% );   
 }
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 5% auto;
     /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-
+    
     /* Could be more or less, depending on screen size */
     
 }
+.modal-imagess{
+    display : flex;
+    flex-direction: row;
+}
 
   
-.modal-images{
-    float:left;
-    padding-right: 30px ;
-}
-
-.modal_orthoimage{
-    position: relative;
-}

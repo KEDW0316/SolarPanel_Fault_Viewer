@@ -15,7 +15,7 @@
 
 <body>
     <div style="text-align : center;">
-        
+
         <div id="orthoimage-wrapper">
             <img id="orthoimage" src="{{ orthoimage.image.url }}" width="800px" alt="" />
 
@@ -29,7 +29,8 @@
                     top : calc({{file.px_y}}%);
                 }
             </style>
-            <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" src={% static 'img/pin2.svg' %} onclick=fault_detail({{file.id}})>
+            <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" src={% static 'img/pin2.svg' %}
+                    onclick=fault_detail({{file.id}})>
                 <script src="https://code.jquery.com/jquery-latest.js"></script>
 
                 <script type="text/javascript">
@@ -49,19 +50,26 @@
 
         <!-- Create Modal Popup -->
         {% for file in panelfault %}
-        
+
         <div id="myModal{{file.id}}" class="modal">
 
             <!-- Modal content -->
             <div class="modal-content">
-                <div class="modal-images">
-                    <img id="modal_orthoimage" src="{{ orthoimage.image.url }}" width="50%" alt="" />
-                    <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="30%" alt="" />
-
-                    <div>
-                        <a><img id="modal_faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
-                    </div>
+                <div id="modal-imagess">
+                <div id="modal-images">
+                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width="500px" alt="" />
+                    <style>
+                    #modal-faultmark{{file.id}}{
+                    position:absolute;
+                    left :calc({{file.px_x}}%);
+                    top : calc({{file.px_y}}%);
+                    } 
+                    </style>
+                <img id="modal-faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
                 </div>
+                 
+                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="40%" alt="" style="padding-top: 10%;" />
+                    </div>
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
                                 style="font-size: 24pt;">고장났어요!</span></b></span></p>
 
