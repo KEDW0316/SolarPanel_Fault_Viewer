@@ -71,7 +71,7 @@
                         <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="600px" alt="" style="float : right;margin:auto;  padding-top: 150px; padding-right: 30px;" />
                     </div>
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
-                                style="font-size: 24pt;">고장났어요!</span></b></span></p>
+                                style="font-size: 24pt;">고장 유형 : {% if file.id|divisibleby:2 %}Hot Spot{% else %}Bypass Diode{% endif %}</span></b></span></p>
 
                 <p><br /></p>
                 <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
