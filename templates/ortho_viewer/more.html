@@ -57,7 +57,7 @@
             <div class="modal-content">
                 <div id="modal-imagess">
                 <div id="modal-images">
-                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width="500px" alt="" />
+                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width=700px" alt="" style="float:left; margin:auto; padding-top: 30px; padding-left: 30px;" />
                     <style>
                     #modal-faultmark{{file.id}}{
                     position:absolute;
@@ -68,7 +68,7 @@
                 <img id="modal-faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
                 </div>
                  
-                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="40%" alt="" style="padding-top: 10%;" />
+                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="600px" alt="" style="float : right;margin:auto;  padding-top: 150px; padding-right: 30px;" />
                     </div>
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
                                 style="font-size: 24pt;">고장났어요!</span></b></span></p>
