@@ -61,7 +61,7 @@
                     <style>
                     #modal-faultmark{{file.id}}{
                     position:absolute;
-                    left :calc({{file.px_x}}%);
+                    left :calc({{file.px_x||add:"-1"}}%);
                     top : calc({{file.px_y|add:"-2"}}%);
                     } 
                     </style>
