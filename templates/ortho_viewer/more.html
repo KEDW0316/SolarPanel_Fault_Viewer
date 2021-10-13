@@ -62,7 +62,7 @@
                     #modal-faultmark{{file.id}}{
                     position:absolute;
                     left :calc({{file.px_x}}%);
-                    top : calc({{file.px_y}}%);
+                    top : calc({{file.px_y|add:"-2"}}%);
                     } 
                     </style>
                 <img id="modal-faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
