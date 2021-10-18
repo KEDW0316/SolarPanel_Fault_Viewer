@@ -9,14 +9,17 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
-    orthoimage=Orthoimage.objects.all()
-    return render(request, 'ortho_viewer/index.html' , {'orthoimage': orthoimage})
+    cur_user = request.user
+    if cur_user.is_authenticated:
+        orthoimage=Orthoimage.objects.all()
+        return render(request, 'ortho_viewer/index.html' , {'orthoimage': orthoimage})
+    else:
+        return redirect('login')
+def gohome(request):
+    return redirect('index')
 
 def more(request):
     return render(request, 'ortho_viewer/more.html')
-
-def login(request):
-    return render(request, 'ortho_viewer/login.html')
 
 def more(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)

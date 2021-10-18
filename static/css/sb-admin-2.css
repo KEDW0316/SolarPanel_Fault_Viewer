@@ -10,6 +10,8 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ 
+
 :root {
   --blue: #4e73df;
   --indigo: #6610f2;
@@ -10861,7 +10863,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
+  background: url('django_pv_viewer/static/img/dronada_logo2.png');
   background-position: center;
   background-size: cover;
 }
