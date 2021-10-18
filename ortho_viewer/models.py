@@ -1,9 +1,12 @@
+from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 
 class Orthoimage(models.Model):
     title = models.CharField(max_length=30)
     image = models.ImageField(upload_to='image/')
-    
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+
     def publish(self):
         self.save()
 
