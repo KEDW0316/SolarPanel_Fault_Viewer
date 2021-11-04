@@ -4066,6 +4066,10 @@ input[type="button"].btn-block {
   border-color: #dddfeb #dddfeb #fff;
 }
 
+.questions{
+  color: black;
+}
+
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
   border-top-left-radius: 0;
@@ -10863,13 +10867,13 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url('django_pv_viewer/static/img/dronada_logo2.png');
+  background: url('../img/dronada_logo2.png');
   background-position: center;
   background-size: cover;
 }
 
 .bg-register-image {
-  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
+  background: url('../img/dronada_logo2.png');
   background-position: center;
   background-size: cover;
 }

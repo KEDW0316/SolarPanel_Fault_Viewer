@@ -11,7 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     cur_user = request.user
     if cur_user.is_authenticated:
-        orthoimage=Orthoimage.objects.filter(user_id=cur_user)
+        if cur_user.is_superuser:
+            orthoimage=Orthoimage.objects.all()
+        else:
+            orthoimage=Orthoimage.objects.filter(user_id=cur_user)
+            
         return render(request, 'ortho_viewer/index.html' , {'orthoimage': orthoimage})
     else:
         return redirect('login')
@@ -24,7 +28,13 @@ def more(request):
 def more(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)
     panelfault = panel_fault.objects.filter(image_id=orthoimage)
-    return render(request, 'ortho_viewer/more.html', {'orthoimage':orthoimage, 'panelfault':panelfault})
+    cur_user=request.user
+    
+    if cur_user.is_superuser:
+        is_super = True
+    else : 
+        is_super = False
+    return render(request, 'ortho_viewer/more.html', {'orthoimage':orthoimage, 'panelfault':panelfault, 'superuser':is_super})
 
 def faultform(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)

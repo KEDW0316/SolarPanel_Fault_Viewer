@@ -8,9 +8,11 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class=" h3 mb-0 text-gray-800">{{orthoimage.title}}</h1>
+    
     <a href="{% url 'faultform' pk=orthoimage.pk %}"
-        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> 고장위치 추가</a>
+        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% if superuser %}<i
+            class="fas fa-download fa-sm text-white-50"></i> 고장위치 추가{% endif %}</a>
+    
 </div>
 
 <body>
@@ -57,7 +59,7 @@
             <div class="modal-content">
                 <div id="modal-imagess">
                 <div id="modal-images">
-                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width=600px" alt="" style="float:left;  " />
+                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width=100% alt="" style="float:left;  " />
                     <style>
                     #modal-faultmark{{file.id}}{
                     position:absolute;
@@ -68,7 +70,7 @@
                 <img id="modal-faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
                 </div>
                  
-                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width="500px" alt="" style="float : right; padding-top: 90px;" />
+                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width=40% alt="" style="float : right; " />
                     </div>
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
                                 style="font-size: 24pt;">고장 유형 : {% if file.id|divisibleby:2 %}Hot Spot{% else %}Bypass Diode{% endif %}</span></b></span></p>

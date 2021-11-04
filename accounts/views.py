@@ -33,7 +33,7 @@ def login(request):
             auth.login(request, user)
             return redirect('index')
         else:
-           return render(request, 'accounts/login.html', {'error': 'username or password is incorrect'})
+           return render(request, 'accounts/login.html', {'error': '아이디 혹은 비밀번호가 틀렸습니다.'})
     else:
         return render(request, 'accounts/login.html')
 

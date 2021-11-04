@@ -19,7 +19,7 @@
         {% for file in orthoimage %}
 
         <div class="col-3">
-            <div class="card" style="text-align: center;">
+            <div class="card" >
                 <div class="card-header">
                     {{orthoimage.title}}
                 </div>
@@ -32,10 +32,11 @@
                 </style>
                 <img src="{{ file.image.url }}" width="90%" alt="" />
 
-                <div class="card-body">
+                <div class="card-body" style="text-align:center;">
                     <h5 class="card-title">{{file.title}}</h5>
-                    <p class="card-text"></p>
-                    <a href="{% url 'more' pk=file.pk %}" class="btn btn-primary">More</a>
+                    <p class="card-text">검사일자 : {{file.inspection_date|date:"Y-m-d"}}</p>
+                    <p class="card-text">주소 : {{file.address}}</p>
+                    <a href="{% url 'more' pk=file.pk %}" class="btn btn-primary" style="text-align: center;">More</a>
                 </div>
             </div>
         </div>

@@ -8,12 +8,12 @@
 
 <script language="javascript">
     function testimage() {
-        x=event.offsetX;
-        y=event.offsetY;
+        x = event.offsetX;
+        y = event.offsetY;
         width = document.getElementById('orthoimage').clientWidth;
         height = document.getElementById('orthoimage').clientHeight;
-        document.getElementById("px_x").value=((x/width)*100)-1.4;
-        document.getElementById("px_y").value=((y/height)*100)-2.9;
+        document.getElementById("px_x").value = ((x / width) * 100) - 1.4;
+        document.getElementById("px_y").value = ((y / height) * 100) - 2.9;
 
     }
 </script>
@@ -31,14 +31,11 @@
                 <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
                 <input class="btn btn-dark" type="submit" value="제출하기">
             </form>
-            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80% />
+            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80%" />
         </div>
 
     </div>
 </body>
-
-</br></br></br></br></br>
-
 
 
 {% endblock content %}

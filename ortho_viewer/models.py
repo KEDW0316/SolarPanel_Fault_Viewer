@@ -1,11 +1,14 @@
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from datetime import date
 
 class Orthoimage(models.Model):
     title = models.CharField(max_length=30)
     image = models.ImageField(upload_to='image/')
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    inspection_date = models.DateField(null = True, default='')
+    address = models.CharField(max_length=100, null=True)
 
     def publish(self):
         self.save()
