@@ -66,4 +66,8 @@
     flex-direction: row;
 }
 
-  
+.table {
+    max-height: 400px;
+  overflow: auto;
+  display:inline-block;
+}

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from datetime import date
+import os
 
 class Orthoimage(models.Model):
     title = models.CharField(max_length=30)
@@ -16,17 +17,25 @@ class Orthoimage(models.Model):
     def __str__(self):
         return self.title
 
+
 class panel_fault(models.Model):
+    file = models.FileField()
     id = models.BigAutoField(primary_key=True)
     image_id = models.ForeignKey(Orthoimage, on_delete=models.CASCADE)
     px_x = models.FloatField(default = 1, null=True)
     px_y = models.FloatField(default = 1, null=True)
     fault_image = models.ImageField(upload_to='image/', null=True, blank=True)
-
+    
     def publish(self):
         self.save()
 
     def __int__(self):
         return self.image_id
+
+    def filename(self):
+        return os.path.basename(self.file.name)
+
+   
+
 
 # Create your models here.
