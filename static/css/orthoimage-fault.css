@@ -5,7 +5,7 @@
 #orthoimage-wrapper {
     position: relative;
     margin-left : 10px;
-    width: 800px;
+    width: 100%;
 
 }
 #orthoimage {   
