@@ -31,7 +31,34 @@
                 <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
                 <input class="btn btn-dark" type="submit" value="제출하기">
             </form>
-            <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80%" />
+            <!-- <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80%" /> -->
+            <div id="openseadragon2" style="width: 1000px; height: 800px;"></div>
+            <script src="{% static '/js/openseadragon.min.js' %}"></script>
+            <script type="text/javascript">
+                var viewer2 = OpenSeadragon({
+                    id: "openseadragon2",
+                    prefixUrl: "{% static 'img/openseadragon/' %}",
+                    showNavigator:  true,
+                    navigatorPosition:   "BOTTOM_LEFT",
+                    gestureSettingsMouse: { clickToZoom: false},
+                    tileSources: [{
+                        type: 'image',
+                        url:  '{{orthoimage.image.url}}',
+                        tileOverlap: 1,
+                    }],                    
+                });
+                viewer2.addHandler('canvas-click', function (event) {
+                    var viewportPoint = viewer2.viewport.pointFromPixel(event.position);
+                    var p = viewer2.viewport.viewportToImageCoordinates(viewportPoint);
+                    var width = Math.max(viewer2.world.getItemAt(0).getContentSize().x,viewer2.world.getItemAt(0).getContentSize().y)
+                    console.log(p.x + " " + p.y);
+                    console.log(" " + width);
+                    console.log(p.x / width + " " + p.y/width);
+                    document.getElementById("px_x").value = p.x/width;
+                    document.getElementById("px_y").value = p.y/width;
+                });
+            </script> 
+            
         </div>
 
     </div>

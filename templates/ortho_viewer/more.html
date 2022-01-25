@@ -22,18 +22,51 @@
             <tr style="vertical-align: top; ">
                 <td style="border-right:1px solid red; padding-right:12px; text-align:justify;">
                     <div id="orthoimage-wrapper">
-                        <img id="orthoimage" src="{{ orthoimage.image.url }}" width="100%" alt="" />
-
-                        <!-- Marking on Orthoimage -->
+                        <div id="openseadragon1" style="width: 1000px; height: 800px;"></div>
                         {% for file in panelfault %}
-                        <style>
-                            .faultmark{{file.id}}{
-                                width:3%;
-                                position:absolute;
-                                left :calc({{file.px_x}}%);
-                                top : calc({{file.px_y}}%);
-                            }
-                        </style>
+                        <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
+
+                        {% endfor %}
+                        <script src="{% static '/js/openseadragon.min.js' %}"></script>
+                        <script type="text/javascript">
+                            var viewer = OpenSeadragon({
+                                id: "openseadragon1",
+                                prefixUrl: "{% static 'img/openseadragon/' %}",
+                                showNavigator:  true,
+                                navigatorPosition:   "BOTTOM_LEFT",
+                                gestureSettingsMouse: { clickToZoom: false},
+                                tileSources: [{
+                                    type: 'image',
+                                    url:  '{{orthoimage.image.url}}',
+                                    tileOverlap: 1,
+                                    overlays: [
+                                    {% for file in panelfault %}
+                                    {
+                                        id: 'right-arrow-overlay{{file.id}}',
+                                        x: {{file.px_x}},
+                                        y: {{file.px_y}},
+                                        placement: 'BOTTOM',
+                                        checkResize: false
+                                    },
+                                    {% endfor %}
+                                    ],
+                                }],                                
+                            });
+
+                            {% for file in panelfault %}
+                            new OpenSeadragon.MouseTracker({
+                                element: 'right-arrow-overlay{{file.id}}',
+                                clickHandler: function(e{{file.id}}) {
+                                    // fault_detail({{file.id}})
+                                    fault_detail_image({{file.id}})
+                                }
+                            });
+                            {% endfor %}
+
+                        </script>                    
+                        <!-- <img id="orthoimage" src="{{ orthoimage.image.url }}" width="100%" alt="" />
+
+                        {% for file in panelfault %}
                         <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" class="faultmark{{file.id}}" src={% static 'img/pin2.svg' %}
                                 onclick=fault_detail({{file.id}})>
                             <script src="https://code.jquery.com/jquery-latest.js"></script>
@@ -49,12 +82,33 @@
 
                             </script>
                         </a>
-                        {% endfor %}
+                        {% endfor %} -->
                         <!-- End Marking on Ortho image -->
                     </div>
                 </td>
-                <td>
-                
+                <td>          
+                    <div id="detail" style="width: 600px; height: 500px;"></div>
+
+                    <script type="text/javascript">
+                        function fault_detail_image(file_id){
+                            delete viewer2;
+                            {% for file in panelfault %}
+                            if ({{file.id}} == file_id){
+                            var viewer2 = OpenSeadragon({
+                                id: "detail",
+                                prefixUrl: "{% static 'img/openseadragon/' %}",
+                                gestureSettingsMouse: { clickToZoom: false},
+                                tileSources: [{
+                                    type: 'image',                                    
+                                    url:  '{{file.fault_image.url}}',
+                                    tileOverlap: 1,
+                                }],                                
+                            });  
+                            }
+                            {% endfor %}       
+                        }               
+                    </script>       
+                    
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
@@ -102,13 +156,9 @@
                                                 };
                                                 function change(file_id){
                                                     document.getElementsByClassName("faultmark" +file_id)[0].style.width='4%';
-                                                    // document.getElementsByClassName("faultmark{{file.id}}")[0].style.left='calc({{file.px_x|add:"-1"}}%)';
-                                                    // document.getElementsByClassName("faultmark{{file.id}}")[0].style.top='calc({{file.px_y|add:"-1"}}%)';
                                                 }
                                                 function changeBack(file_id){
                                                     document.getElementsByClassName("faultmark" +file_id)[0].style.width='3%';
-                                                    // document.getElementsByClassName("faultmark{{file.id}}")[0].style.left='calc({{file.px_x}}%)';
-                                                    // document.getElementsByClassName("faultmark{{file.id}}")[0].style.top='calc({{file.px_y}}%)';
                                                 }
 
                                             </script>
