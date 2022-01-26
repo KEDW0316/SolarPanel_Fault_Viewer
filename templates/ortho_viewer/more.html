@@ -64,36 +64,20 @@
                             {% endfor %}
 
                         </script>                    
-                        <!-- <img id="orthoimage" src="{{ orthoimage.image.url }}" width="100%" alt="" />
-
-                        {% for file in panelfault %}
-                        <a href="#myModal{{file.id}}"><img id="faultmark{{file.id}}" class="faultmark{{file.id}}" src={% static 'img/pin2.svg' %}
-                                onclick=fault_detail({{file.id}})>
-                            <script src="https://code.jquery.com/jquery-latest.js"></script>
-
-                            <script type="text/javascript">
-                                function fault_detail(file_id) {
-                                    $('#myModal' + file_id).show();
-                                }
-                                //팝업 Close 기능
-                                function close_pop(file_id) {
-                                    $('#myModal' + file_id).hide();
-                                };
-
-                            </script>
-                        </a>
-                        {% endfor %} -->
-                        <!-- End Marking on Ortho image -->
+                        
                     </div>
                 </td>
                 <td>          
                     <div id="detail" style="width: 600px; height: 500px;"></div>
-
                     <script type="text/javascript">
                         function fault_detail_image(file_id){
                             delete viewer2;
+                            var cell = document.getElementById("detail"); 
+                            while ( cell.hasChildNodes() ) { cell.removeChild( cell.firstChild ); }
+
                             {% for file in panelfault %}
                             if ({{file.id}} == file_id){
+                            
                             var viewer2 = OpenSeadragon({
                                 id: "detail",
                                 prefixUrl: "{% static 'img/openseadragon/' %}",
@@ -108,14 +92,14 @@
                             {% endfor %}       
                         }               
                     </script>       
-                    
+<!--                     
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+                                <table class="table table-bordered" id="dataTable" width="30%" cellspacing="0" >
                                     <thead>
                                         <tr>
                                             <th>번호</th>
@@ -176,18 +160,18 @@
                             </div>
                         </div>
                     </div>
-                </td>
+                </td> -->
                
 
             </tr>
         </table>
         <!-- Create Modal Popup -->
         {% for file in panelfault %}
-
+<!-- 
         <div id="myModal{{file.id}}" class="modal">
 
             <!-- Modal content -->
-            <div class="modal-content">
+            <!-- <div class="modal-content">
                 <div id="modal-imagess">
                 <div id="modal-images">
                     <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width=100% alt="" style="float:left;  " />
@@ -215,8 +199,8 @@
                 </div>
             </div>
 
-        </div>
-        {% endfor %}
+        </div> -->
+        <!-- {% endfor %}  -->
 
         <!--End Modal-->
         <!-- </div> -->
