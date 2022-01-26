@@ -50,6 +50,7 @@ def create(request, pk):
     fault.px_x=request.POST['px_x']
     fault.px_y=request.POST['px_y']
     fault.fault_image=request.FILES['fault_image']
+    fault.fault_type=request.POST['fault_type']
     fault.save()
     return redirect('/more/'+str(orthoimage.id))
 

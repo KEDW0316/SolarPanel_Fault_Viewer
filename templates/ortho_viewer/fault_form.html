@@ -1,25 +1,9 @@
 {% extends 'ortho_viewer/base.html' %}
 {% load static %}
-
 {% block content %}
 <!--Custom styles for this template-->
 <!-- Page Heading -->
 <link href="{% static 'css/orthoimage-fault.css' %}" rel="stylesheet">
-
-<script language="javascript">
-    function testimage() {
-        x = event.offsetX;
-        y = event.offsetY;
-        width = document.getElementById('orthoimage').clientWidth;
-        height = document.getElementById('orthoimage').clientHeight;
-        document.getElementById("px_x").value = ((x / width) * 100) - 1.4;
-        document.getElementById("px_y").value = ((y / height) * 100) - 2.9;
-
-    }
-</script>
-
-<body>
-</body>
 
 <body>
     <div style="text-align : center;">
@@ -29,10 +13,11 @@
                 <input type="number" step="any" id="px_x" name="px_x">
                 <input type="number" step="any" id="px_y" name="px_y">
                 <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
+                <input type="text" id="fault_type" name="fault_type">
                 <input class="btn btn-dark" type="submit" value="제출하기">
             </form>
             <center>
-            <div id="openseadragon2" style="width: 1200px; height: 700px; "></div>
+            <div id="openseadragon2" style="width: 1200px; height: 700px; background-color: #49524c; "></div>
             {% for file in panelfault %}
             <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
             {% endfor %}
@@ -61,6 +46,7 @@
                             ],
                     }],                    
                 });
+                
                 viewer2.addHandler('canvas-click', function (event) {
                     var viewportPoint = viewer2.viewport.pointFromPixel(event.position);
                     var p = viewer2.viewport.viewportToImageCoordinates(viewportPoint);
