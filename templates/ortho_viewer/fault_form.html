@@ -31,8 +31,11 @@
                 <input type="file" id="fault_image" name="fault_image" accept=".jpg, .png">
                 <input class="btn btn-dark" type="submit" value="제출하기">
             </form>
-            <!-- <img id="orthoimage" src="{{ orthoimage.image.url }}" alt="" onclick="testimage()" width="80%" /> -->
-            <div id="openseadragon2" style="width: 1000px; height: 800px;"></div>
+            <center>
+            <div id="openseadragon2" style="width: 1200px; height: 700px; "></div>
+            {% for file in panelfault %}
+            <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
+            {% endfor %}
             <script src="{% static '/js/openseadragon.min.js' %}"></script>
             <script type="text/javascript">
                 var viewer2 = OpenSeadragon({
@@ -45,6 +48,17 @@
                         type: 'image',
                         url:  '{{orthoimage.image.url}}',
                         tileOverlap: 1,
+                        overlays: [
+                            {% for file in panelfault %}
+                            {
+                                id: 'right-arrow-overlay{{file.id}}',
+                                x: {{file.px_x}},
+                                y: {{file.px_y}},
+                                placement: 'BOTTOM',
+                                checkResize: false
+                            },
+                            {% endfor %}
+                            ],
                     }],                    
                 });
                 viewer2.addHandler('canvas-click', function (event) {
@@ -58,7 +72,7 @@
                     document.getElementById("px_y").value = p.y/width;
                 });
             </script> 
-            
+            </center>
         </div>
 
     </div>

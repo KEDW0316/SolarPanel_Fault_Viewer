@@ -38,7 +38,9 @@ def more(request, pk):
 
 def faultform(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)
-    return render(request, 'ortho_viewer/fault_form.html', {'orthoimage':orthoimage})
+    panelfault = panel_fault.objects.filter(image_id=orthoimage)
+
+    return render(request, 'ortho_viewer/fault_form.html', {'orthoimage':orthoimage, 'panelfault':panelfault})
 
 @csrf_exempt
 def create(request, pk):
