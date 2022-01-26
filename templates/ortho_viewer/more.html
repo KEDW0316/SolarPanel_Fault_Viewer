@@ -18,193 +18,86 @@
 <body>
     <div style="text-align : center;">
 
-        <table>
-            <tr style="vertical-align: top; ">
-                <td style="border-right:1px solid red; padding-right:12px; text-align:justify;">
-                    <div id="orthoimage-wrapper">
-                        <div id="openseadragon1" style="width: 1000px; height: 700px;"></div>
-                        {% for file in panelfault %}
-                        <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
+       
+        <div id="orthoimage-wrapper">
+            <div id="openseadragon1" style="width: 1000px; height: 700px; float:left; background-color: #49524c; margin-right:10px"></div>
 
-                        {% endfor %}
-                        <script src="{% static '/js/openseadragon.min.js' %}"></script>
-                        <script type="text/javascript">
-                            var viewer = OpenSeadragon({
-                                id: "openseadragon1",
-                                prefixUrl: "{% static 'img/openseadragon/' %}",
-                                showNavigator:  true,
-                                navigatorPosition:   "BOTTOM_LEFT",
-                                gestureSettingsMouse: { clickToZoom: false},
-                                tileSources: [{
-                                    type: 'image',
-                                    url:  '{{orthoimage.image.url}}',
-                                    tileOverlap: 1,
-                                    overlays: [
-                                    {% for file in panelfault %}
-                                    {
-                                        id: 'right-arrow-overlay{{file.id}}',
-                                        x: {{file.px_x}},
-                                        y: {{file.px_y}},
-                                        placement: 'BOTTOM',
-                                        checkResize: false
-                                    },
-                                    {% endfor %}
-                                    ],
-                                }],                                
-                            });
-
+            {% for file in panelfault %}
+            <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
+            {% endfor %}
+            
+            <script src="{% static '/js/openseadragon.min.js' %}"></script>
+                <script type="text/javascript">
+                    var viewer = OpenSeadragon({
+                        id: "openseadragon1",
+                        prefixUrl: "{% static 'img/openseadragon/' %}",
+                        showNavigator:  true,
+                        navigatorPosition:   "BOTTOM_LEFT",
+                        gestureSettingsMouse: { clickToZoom: false},
+                        tileSources: [{
+                            type: 'image',
+                            url:  '{{orthoimage.image.url}}',
+                            tileOverlap: 1,
+                            overlays: [
                             {% for file in panelfault %}
-                            new OpenSeadragon.MouseTracker({
-                                element: 'right-arrow-overlay{{file.id}}',
-                                clickHandler: function(e{{file.id}}) {
-                                    // fault_detail({{file.id}})
-                                    fault_detail_image({{file.id}})
-                                }
-                            });
+                            {
+                                id: 'right-arrow-overlay{{file.id}}',
+                                x: {{file.px_x}},
+                                y: {{file.px_y}},
+                                placement: 'BOTTOM',
+                                checkResize: false
+                            },
                             {% endfor %}
+                            ],
+                        }],                                
+                    });
 
-                        </script>                    
+                    {% for file in panelfault %}
+                    new OpenSeadragon.MouseTracker({
+                        element: 'right-arrow-overlay{{file.id}}',
+                        clickHandler: function(e{{file.id}}) {
                         
-                    </div>
-                </td>
-                <td>          
-                    <div id="detail" style="width: 600px; height: 500px;"></div>
-                    <script type="text/javascript">
-                        function fault_detail_image(file_id){
-                            delete viewer2;
-                            var cell = document.getElementById("detail"); 
-                            while ( cell.hasChildNodes() ) { cell.removeChild( cell.firstChild ); }
+                        fault_detail_image({{file.id}})
+                        }
+                    });
+                    {% endfor %}
 
-                            {% for file in panelfault %}
-                            if ({{file.id}} == file_id){
+            </script>                    
                             
-                            var viewer2 = OpenSeadragon({
-                                id: "detail",
-                                prefixUrl: "{% static 'img/openseadragon/' %}",
-                                gestureSettingsMouse: { clickToZoom: false},
-                                tileSources: [{
-                                    type: 'image',                                    
-                                    url:  '{{file.fault_image.url}}',
-                                    tileOverlap: 1,
-                                }],                                
-                            });  
-                            }
-                            {% endfor %}       
-                        }               
-                    </script>       
-<!--                     
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="30%" cellspacing="0" >
-                                    <thead>
-                                        <tr>
-                                            <th>번호</th>
-                                            <th>이미지</th>
-                                            <th>고장유형</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                 
-                                    <tbody>
-                                        {% for file in panelfault %}
-                                        
-                                        <style>
-                                            .faultlist:hover
-                                            {
-                                                background-color: #808080;
-                                                color: #FFFFFF;
-                                                cursor: pointer;
-                                            }
-                                            .faultlist:hover + .faultmark{{file.id}}
-                                            {
-                                                background-color: #ffffff;
-                                            }
-                                        </style>
-                                        <a href="#myModal{{file.id}}"></a>
-                                        <tr class="faultlist" onclick=fault_detail({{file.id}}) onmouseover="change({{file.id}})" onmouseout="changeBack({{file.id}})">
-                                            <script src="https://code.jquery.com/jquery-latest.js"></script>
-                                        
-                                            <script type="text/javascript">
-                                                function fault_detail(file_id) {
-                                                    $('#myModal' + file_id).show();
-                                                }
-                                                //팝업 Close 기능
-                                                function close_pop(file_id) {
-                                                    $('#myModal' + file_id).hide();
-                                                };
-                                                function change(file_id){
-                                                    document.getElementsByClassName("faultmark" +file_id)[0].style.width='4%';
-                                                }
-                                                function changeBack(file_id){
-                                                    document.getElementsByClassName("faultmark" +file_id)[0].style.width='3%';
-                                                }
+        </div>
 
-                                            </script>
-                                        
-                                            <td>{{forloop.counter}} </td>
-                                            <td><img src="{{ file.fault_image.url }}" width=50% /></td>
-                                            <td>Bypass</td>
-                                            <td>{{file.px_x}}</td>
-                                            <td>{{file.px_y}}</td>
-                                            </a>
-                                        </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </td> -->
-               
-
-            </tr>
-        </table>
-        <!-- Create Modal Popup -->
-<!--        {% for file in panelfault %}
- 
-        <div id="myModal{{file.id}}" class="modal">
-
-            <!-- Modal content -->
-            <!-- <div class="modal-content">
-                <div id="modal-imagess">
-                <div id="modal-images">
-                    <img id="modal-orthoimage" src="{{ orthoimage.image.url }}" width=100% alt="" style="float:left;  " />
-                    <style>
-                    #modal-faultmark{{file.id}}{
-                    position:absolute;
-                    left :calc({{file.px_x|add:"-1"}}%);
-                    top : calc({{file.px_y|add:"-2"}}%);
-                    } 
-                    </style>
-                <img id="modal-faultmark{{file.id}}" src={% static 'img/pin2.svg' %} width="5%" height="5%">
-                </div>
-                 
-                        <img id="modal_fault_image" src="{{ file.fault_image.url }}" width=40% alt="" style="float : right; " />
-                    </div>
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
-                                style="font-size: 24pt;">고장 유형 : {% if file.id|divisibleby:2 %}Hot Spot{% else %}Bypass Diode{% endif %}</span></b></span></p>
-
-                <p><br /></p>
-                <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
-                    onClick="close_pop({{file.id}});">
-                    <span class="pop_bt" style="font-size: 13pt;">
-                        닫기
-                    </span>
-                </div>
+        <div>
+            <div style="float:right; margin-right:100px;">
+                <h3 style="color: black;">Detailed Image</h3>
+                <div id="detail" style="width: 500px; height: 400px; background-color: #49524c; "></div>
             </div>
-
-        </div> -->
-        <!-- {% endfor %}  -->
-
-        <!--End Modal-->
-        <!-- </div> -->
-    </div>
+            <script type="text/javascript">
+            function fault_detail_image(file_id){
+                delete viewer2;
+                var cell = document.getElementById("detail"); 
+                while ( cell.hasChildNodes() ) { cell.removeChild( cell.firstChild ); }
+                {% for file in panelfault %}
+                if ({{file.id}} == file_id){
+                    var viewer2 = OpenSeadragon({
+                        id: "detail",
+                        prefixUrl: "{% static 'img/openseadragon/' %}",
+                        gestureSettingsMouse: { clickToZoom: false},
+                        tileSources: [{
+                            type: 'image',                                    
+                            url:  '{{file.fault_image.url}}',
+                            tileOverlap: 1,
+                        }],                                
+                    });  
+                }
+                {% endfor %}       
+            }               
+            </script>       
+            </div>
+            <div>
+                <h1>
+            </div>
+            
+        </div>
    
 </body>
 {% endblock content %}
