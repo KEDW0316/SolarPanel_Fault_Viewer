@@ -25,6 +25,7 @@ class panel_fault(models.Model):
     px_x = models.FloatField(default = 1, null=True)
     px_y = models.FloatField(default = 1, null=True)
     fault_image = models.ImageField(upload_to='image/', null=True, blank=True)
+    fault_type = models.CharField(max_length=200, default="Bypass Fault")
     
     def publish(self):
         self.save()

@@ -22,7 +22,7 @@
             <tr style="vertical-align: top; ">
                 <td style="border-right:1px solid red; padding-right:12px; text-align:justify;">
                     <div id="orthoimage-wrapper">
-                        <div id="openseadragon1" style="width: 1000px; height: 800px;"></div>
+                        <div id="openseadragon1" style="width: 1000px; height: 700px;"></div>
                         {% for file in panelfault %}
                         <img id="right-arrow-overlay{{file.id}}" src="{% static 'img/pin2.svg' %}" alt="Right arrow" width="20">
 
@@ -166,8 +166,8 @@
             </tr>
         </table>
         <!-- Create Modal Popup -->
-        {% for file in panelfault %}
-<!-- 
+<!--        {% for file in panelfault %}
+ 
         <div id="myModal{{file.id}}" class="modal">
 
             <!-- Modal content -->
