@@ -45,6 +45,7 @@ def faultform(request, pk):
 @csrf_exempt
 def create(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)
+    fault=panel_fault()
     fault.image_id=orthoimage
     fault.px_x=request.POST['px_x']
     fault.px_y=request.POST['px_y']

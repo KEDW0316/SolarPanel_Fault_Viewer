@@ -138,7 +138,6 @@
                         }
                     });
                         detailed_information.innerHTML='{{file.fault_type}}';
-                        fault_image_id.innerHTML='{{file.pk}}';
                         var theForm = document.frmSubmit;
                         theForm.action = "{%url 'create_faultmark' pk=file.pk pk2=orthoimage.pk %}"
                         
@@ -150,10 +149,9 @@
                 <div class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            상세 정보
+                            상세 고장 정보
                         </div>
                         <div class="card-body" id="detailed_information"></div>
-                        <div class="card-body" id="fault_image_id"></div>
                     </div>
                 </div>
 
