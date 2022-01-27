@@ -15,15 +15,11 @@
         <a href="{% url 'faultform' pk=orthoimage.pk %}"
             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% if superuser %}<i
                 class="fas fa-download fa-sm text-white-50" ></i> 고장위치 추가{% endif %}</a>
-        <button onclick="onDisplay()"
+        <button 
                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% if superuser %}<i
                     class="fas fa-download fa-sm text-white-50" ></i> 상세 고장위치 추가{% endif %}</a>
     </div>
-    <script>
-        function onDisplay(){
-            $('#detailed_form').show();
-        }
-    </script>
+   
 </div>
 
 <body>
@@ -161,7 +157,8 @@
                     </div>
                 </div>
 
-                <div id="detailed_form" style="display: none;">
+                {% if superuser %}
+                <div id="detailed_form" ">
                     <form name=frmSubmit action="{%url 'create_faultmark' pk=7 pk2=orthoimage.pk %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="number" step="any" id="fault_x" name="fault_x"><br>
@@ -171,6 +168,7 @@
                         <input class="btn btn-dark" type="submit" value="제출하기">
                     </form>
                 </div>
+                {% endif %}
 
             </div>
         </div>
