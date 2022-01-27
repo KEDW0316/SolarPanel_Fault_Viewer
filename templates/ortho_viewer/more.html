@@ -11,11 +11,19 @@
     
     
     <h1 class=" h3 text-gray-800 " style="margin-left:450px; margin-bottom:-10px;">{{orthoimage.title}}</h1>
-    <div style="float:right;>
+    <div style="float:right;">
         <a href="{% url 'faultform' pk=orthoimage.pk %}"
             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% if superuser %}<i
                 class="fas fa-download fa-sm text-white-50" ></i> 고장위치 추가{% endif %}</a>
+        <button onclick="onDisplay()"
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">{% if superuser %}<i
+                    class="fas fa-download fa-sm text-white-50" ></i> 상세 고장위치 추가{% endif %}</a>
     </div>
+    <script>
+        function onDisplay(){
+            $('#detailed_form').show();
+        }
+    </script>
 </div>
 
 <body>
@@ -66,13 +74,27 @@
             </script>                    
                             
 
-            <div class="row">
+            <div class="row" style="vertical-align:auto;">
 
                 <div style="float:right; margin-right:100px;">
                     <h3 >상세 이미지</h3>
                     <div id="detail" style="width: 500px; height: 400px; background-color: #49524c; "></div>
                 </div>
-
+                <style>
+                    .navigator .highlight{
+                        opacity:    0.4;
+                        filter:     alpha(opacity=40);
+                        outline:    2px solid #900;
+                        background-color: #900;
+                    }
+                    .highlight{
+                        opacity:    0.7;
+                        filter:     alpha(opacity=40);
+                        outline:    12px auto #0A7EbE;
+                        
+                    }
+                    
+                    </style>   
                 <script type="text/javascript">
                 function fault_detail_image(file_id){
                     delete viewer2;
@@ -89,10 +111,41 @@
                                 type: 'image',                                    
                                 url:  '{{file.fault_image.url}}',
                                 tileOverlap: 1,
+                                gestureSettingsMouse: { clickToZoom: false},
+                                overlays: [{
+                                    id: 'example-overlay',
+                                    x: {{file.fault_x}},
+                                    y: {{file.fault_y}},
+                                    width: {{file.fault_width}},
+                                    height: {{file.fault_height}},
+                                    className: 'highlight'
+                                }],
                             }],                                
                         });  
 
+                        viewer2.addHandler('canvas-click', function (event) {
+                        var viewportPoint = viewer2.viewport.pointFromPixel(event.position);
+                        var p = viewer2.viewport.viewportToImageCoordinates(viewportPoint);
+                        var width = Math.max(viewer2.world.getItemAt(0).getContentSize().x,viewer2.world.getItemAt(0).getContentSize().y)
+                        console.log(p.x + " " + p.y);
+                        console.log(" " + width);
+                        console.log(p.x / width + " " + p.y/width);
+                        
+                        if(document.getElementById("fault_x").value < p.x/width && document.getElementById("fault_x").value != 0){
+                            document.getElementById("fault_width").value = p.x/width;
+                            document.getElementById("fault_height").value = p.y/width;
+                            document.getElementById("fault_width").value = Math.abs(document.getElementById("fault_x").value - document.getElementById("fault_width").value);
+                            document.getElementById("fault_height").value = Math.abs(document.getElementById("fault_y").value - document.getElementById("fault_height").value);
+                        } else {
+                            document.getElementById("fault_x").value = p.x/width;
+                            document.getElementById("fault_y").value = p.y/width;
+                        }
+                    });
                         detailed_information.innerHTML='{{file.fault_type}}';
+                        fault_image_id.innerHTML='{{file.pk}}';
+                        var theForm = document.frmSubmit;
+                        theForm.action = "{%url 'create_faultmark' pk=file.pk pk2=orthoimage.pk %}"
+                        
                     }
                     {% endfor %}       
                 }               
@@ -103,11 +156,22 @@
                         <div class="card-header">
                             상세 정보
                         </div>
-                        <div class="card-body" id="detailed_information">
-                            
-                        </div>
+                        <div class="card-body" id="detailed_information"></div>
+                        <div class="card-body" id="fault_image_id"></div>
                     </div>
                 </div>
+
+                <div id="detailed_form" style="display: none;">
+                    <form name=frmSubmit action="{%url 'create_faultmark' pk=7 pk2=orthoimage.pk %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="number" step="any" id="fault_x" name="fault_x"><br>
+                        <input type="number" step="any" id="fault_y" name="fault_y"><br>
+                        <input type="number" step="any" id="fault_width" name="fault_width"><br>
+                        <input type="number" step="any" id="fault_height" name="fault_height"><br>
+                        <input class="btn btn-dark" type="submit" value="제출하기">
+                    </form>
+                </div>
+
             </div>
         </div>
    

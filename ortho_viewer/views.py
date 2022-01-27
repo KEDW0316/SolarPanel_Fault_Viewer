@@ -45,7 +45,6 @@ def faultform(request, pk):
 @csrf_exempt
 def create(request, pk):
     orthoimage = get_object_or_404(Orthoimage, pk=pk)
-    fault=panel_fault()
     fault.image_id=orthoimage
     fault.px_x=request.POST['px_x']
     fault.px_y=request.POST['px_y']
@@ -54,4 +53,15 @@ def create(request, pk):
     fault.save()
     return redirect('/more/'+str(orthoimage.id))
 
+@csrf_exempt
+def create_faultmark(request, pk, pk2):
+    fault = get_object_or_404(panel_fault, pk=pk)
+    orthoimage = get_object_or_404(Orthoimage, pk=pk2)
+
+    fault.fault_x=request.POST['fault_x']
+    fault.fault_y=request.POST['fault_y']
+    fault.fault_width=request.POST['fault_width']
+    fault.fault_height=request.POST['fault_height']
+    fault.save(update_fields=["fault_x","fault_y","fault_width","fault_height"])
+    return redirect('/more/'+str(orthoimage.id))
 # Create your views here.

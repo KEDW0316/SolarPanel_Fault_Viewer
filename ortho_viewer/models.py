@@ -19,14 +19,17 @@ class Orthoimage(models.Model):
 
 
 class panel_fault(models.Model):
-    file = models.FileField()
     id = models.BigAutoField(primary_key=True)
     image_id = models.ForeignKey(Orthoimage, on_delete=models.CASCADE)
     px_x = models.FloatField(default = 1, null=True)
     px_y = models.FloatField(default = 1, null=True)
     fault_image = models.ImageField(upload_to='image/', null=True, blank=True)
     fault_type = models.CharField(max_length=200, default="Bypass Fault")
-    
+    fault_x = models.FloatField(default = 0.0)
+    fault_y = models.FloatField(default = 0.0)
+    fault_width = models.FloatField(default = 0.0)
+    fault_height = models.FloatField(default = 0.0)
+
     def publish(self):
         self.save()
 
