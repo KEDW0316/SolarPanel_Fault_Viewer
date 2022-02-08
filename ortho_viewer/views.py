@@ -8,6 +8,9 @@ from ortho_viewer.models import Orthoimage,panel_fault
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
+def panorama(request):
+    return render(request, 'panorama/index.html')
+
 def index(request):
     cur_user = request.user
     if cur_user.is_authenticated:

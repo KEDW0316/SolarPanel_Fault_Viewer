@@ -22,7 +22,8 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('ortho_viewer.urls')),
-    path('',include('accounts.urls'))
+    path('',include('accounts.urls')),
+    path('panorama/',views.panorama)
     
 ]
 

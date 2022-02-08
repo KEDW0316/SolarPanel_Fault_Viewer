@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Project Title</title>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+<style> @-ms-viewport { width: device-width; } </style>
+<link rel="stylesheet" href="{% static 'vendor/reset.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/panorama/style.css' %}">
+</head>
+<body class="multiple-scenes ">
+
+<div id="pano"></div>
+
+<div id="sceneList">
+  <ul class="scenes">
+    
+      <a href="javascript:void(0)" class="scene" data-id="0-_">
+        <li class="text">겨울_건국대</li>
+      </a>
+    
+      <a href="javascript:void(0)" class="scene" data-id="1-_">
+        <li class="text">가을_건국대</li>
+      </a>
+    
+  </ul>
+</div>
+
+<div id="titleBar">
+  <h1 class="sceneName"></h1>
+</div>
+
+<a href="javascript:void(0)" id="autorotateToggle">
+  <img class="icon off" src="{% static 'img/panorama/play.png' %}">
+  <img class="icon on" src="{% static 'img/panorama/pause.png' %}">
+</a>
+
+<a href="javascript:void(0)" id="fullscreenToggle">
+  <img class="icon off" src="{% static 'img/panorama/fullscreen.png' %}">
+  <img class="icon on" src="{% static 'img/panorama/windowed.png' %}">
+</a>
+
+<a href="javascript:void(0)" id="sceneListToggle">
+  <img class="icon off" src="{% static 'img/panorama/expand.png' %}">
+  <img class="icon on" src="{% static 'img/panorama/collapse.png' %}">
+</a>
+
+<a href="javascript:void(0)" id="viewUp" class="viewControlButton viewControlButton-1">
+  <img class="icon" src="{% static 'img/panorama/up.png' %}">
+</a>
+<a href="javascript:void(0)" id="viewDown" class="viewControlButton viewControlButton-2">
+  <img class="icon" src="{% static 'img/panorama/down.png' %}">
+</a>
+<a href="javascript:void(0)" id="viewLeft" class="viewControlButton viewControlButton-3">
+  <img class="icon" src="{% static 'img/panorama/left.png' %}">
+</a>
+<a href="javascript:void(0)" id="viewRight" class="viewControlButton viewControlButton-4">
+  <img class="icon" src="{% static 'img/panorama/right.png' %}">
+</a>
+<a href="javascript:void(0)" id="viewIn" class="viewControlButton viewControlButton-5">
+  <img class="icon" src="{% static 'img/panorama/plus.png' %}">
+</a>
+<a href="javascript:void(0)" id="viewOut" class="viewControlButton viewControlButton-6">
+  <img class="icon" src="{% static 'img/panorama/minus.png' %}">
+</a>
+
+<script src="{% static 'vendor/screenfull.min.js' %}" ></script>
+<script src="{% static 'vendor/bowser.min.js' %}" ></script>
+<script src="{% static 'vendor/marzipano.js' %}" ></script>
+
+<script src="{% static 'js/panorama/data.js' %}"></script>
+<script src="{% static 'js/panorama/index.js' %}"></script>
+
+</body>
+</html>
