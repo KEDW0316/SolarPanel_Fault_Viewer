@@ -74,8 +74,8 @@
   var scenes = data.scenes.map(function(data) {
     var urlPrefix = "tiles";
     var source = Marzipano.ImageUrlSource.fromString(
-      "http://127.0.0.1:8000/static/"+ urlPrefix + "/" + data.id + "/{z}/{f}/{y}/{x}.jpg",
-      { cubeMapPreviewUrl: "http://127.0.0.1:8000/static/"+urlPrefix + "/" + data.id + "/preview.jpg" });
+      "http://127.0.0.1:8000/static/" + urlPrefix + "/" + data.id + "/{z}/{f}/{y}/{x}.jpg",
+      { cubeMapPreviewUrl: "http://127.0.0.1:8000/static/"+  urlPrefix + "/" + data.id + "/preview.jpg" });
     var geometry = new Marzipano.CubeGeometry(data.levels);
 
     var limiter = Marzipano.RectilinearView.limit.traditional(data.faceSize, 100*Math.PI/180, 120*Math.PI/180);
@@ -253,7 +253,7 @@
 
     // Create image element.
     var icon = document.createElement('img');
-    icon.src = 'http://127.0.0.1:8000/static/img/panorama/link.png';
+    icon.src = 'img/link.png';
     icon.classList.add('link-hotspot-icon');
 
     // Set rotation transform.
